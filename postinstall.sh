@@ -128,7 +128,7 @@ X11Forwarding no
 EOF
 
 # ---------- Enable services (they start on first boot) ----------
-systemctl enable ssh isc-dhcp-server bind9 netfilter-persistent
+systemctl enable ssh isc-dhcp-server named netfilter-persistent
 
 # ---------- Router uses its own DNS (written last) ----------
 cat > /etc/resolv.conf <<EOF
