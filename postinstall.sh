@@ -11,11 +11,11 @@ WAN_PREFIX=24
 WAN_GW=10.10.10.10            # ASSUMPTION - set your real gateway
 UPSTREAM_DNS=10.10.10.1      # DNS server the router forwards to
 LAN_IP=172.16.9.1           # ASSUMPTION - router's address on the LAN
-SERVER_IP=172.16.9.100      # LX-SERVER (Apache), fixed by DHCP reservation
+SERVER_IP=172.16.9.128      # LX-SERVER (Apache), fixed by DHCP reservation
 WIN_IP=172.16.9.254         # Windows PC (RDP), fixed by DHCP reservation
 ADMIN_PC=10.10.10.19         # the only outside host allowed SSH + RDP
-SERVER_MAC=""                # e.g. 00:0c:29:aa:bb:cc  (empty = no reservation yet)
-WIN_MAC=""
+SERVER_MAC="00:50:56:2B:48:66"                # e.g. 00:0c:29:aa:bb:cc  (empty = no reservation yet)
+WIN_MAC="00:50:56:28:8D:2A"
 ###################################################################
 
 # ---------- Network interfaces ----------
