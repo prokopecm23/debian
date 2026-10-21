@@ -6,14 +6,14 @@ set -euo pipefail
 ############################ EDIT THESE ############################
 WAN_IF=ens32                 # outside, towards 10.10.10.0/24
 LAN_IF=ens33                 # inside, 172.16.13.0/24
-WAN_IP=10.10.10.113
+WAN_IP=10.10.10.109
 WAN_PREFIX=24
-WAN_GW=10.10.10.1            # ASSUMPTION - set your real gateway
+WAN_GW=10.10.10.10            # ASSUMPTION - set your real gateway
 UPSTREAM_DNS=10.10.10.1      # DNS server the router forwards to
-LAN_IP=172.16.13.1           # ASSUMPTION - router's address on the LAN
-SERVER_IP=172.16.13.100      # LX-SERVER (Apache), fixed by DHCP reservation
-WIN_IP=172.16.13.254         # Windows PC (RDP), fixed by DHCP reservation
-ADMIN_PC=10.10.10.23         # the only outside host allowed SSH + RDP
+LAN_IP=172.16.9.1           # ASSUMPTION - router's address on the LAN
+SERVER_IP=172.16.9.100      # LX-SERVER (Apache), fixed by DHCP reservation
+WIN_IP=172.16.9.254         # Windows PC (RDP), fixed by DHCP reservation
+ADMIN_PC=10.10.10.19         # the only outside host allowed SSH + RDP
 SERVER_MAC=""                # e.g. 00:0c:29:aa:bb:cc  (empty = no reservation yet)
 WIN_MAC=""
 ###################################################################
@@ -80,9 +80,9 @@ max-lease-time 7200;
 option domain-name "lab.local";
 option domain-name-servers ${LAN_IP};
 
-subnet 172.16.13.0 netmask 255.255.255.0 {
+subnet 172.16.9.0 netmask 255.255.255.0 {
     option routers ${LAN_IP};
-    range 172.16.13.129 172.16.13.253;   # DHCP pool (upper /25, minus .254)
+    range 172.16.9.129 172.16.9.253;   # DHCP pool (upper /25, minus .254)
 }
 EOF
 
@@ -112,8 +112,8 @@ options {
     directory "/var/cache/bind";
     listen-on { 127.0.0.1; ${LAN_IP}; };
     listen-on-v6 { none; };
-    allow-query { 127.0.0.0/8; 172.16.13.0/24; };
-    allow-recursion { 127.0.0.0/8; 172.16.13.0/24; };
+    allow-query { 127.0.0.0/8; 172.16.9.0/24; };
+    allow-recursion { 127.0.0.0/8; 172.16.9.0/24; };
     forwarders { ${UPSTREAM_DNS}; };
     dnssec-validation auto;
 };
